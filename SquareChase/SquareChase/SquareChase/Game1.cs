@@ -44,6 +44,8 @@ namespace SquareChase
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -55,6 +57,7 @@ namespace SquareChase
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            squareTexture = Content.Load<Texture2D>("square");
             // TODO: use this.Content to load your game content here
         }
 
