@@ -41,8 +41,6 @@ namespace SquareChase
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
 
             this.IsMouseVisible = true;
@@ -58,7 +56,6 @@ namespace SquareChase
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             squareTexture = Content.Load<Texture2D>("square");
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -77,11 +74,28 @@ namespace SquareChase
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            if (timeRemaining == 0.0f)
+            {
+                currentSquare = new Rectangle(
+                    rand.Next(0, this.Window.ClientBounds.Width - 25),
+                    rand.Next(0, this.Window.ClientBounds.Height - 25),
+                    25, 25);
+                timeRemaining = TimePerSquare;
+            }
 
-            // TODO: Add your update logic here
+            MouseState mouse = Mouse.GetState();
+
+            if ((mouse.LeftButton == ButtonState.Pressed) &&
+                (currentSquare.Contains(mouse.X, mouse.Y)))
+            {
+                playerScore++;
+                timeRemaining = 0.0f;
+            }
+
+            timeRemaining = MathHelper.Max(0, timeRemaining -
+                (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            this.Window.Title = "Score: " + playerScore.ToString() + "   Color: " + (playerScore % 3);
 
             base.Update(gameTime);
         }
@@ -92,9 +106,14 @@ namespace SquareChase
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Gray);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            spriteBatch.Draw(
+                squareTexture,
+                currentSquare,
+                colors[playerScore % 3]);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
