@@ -138,6 +138,17 @@ namespace FloodControl
             return pieceType.Contains(directions);
         }
 
+        public Rectangle GetSourceRect()
+        {
+            int x = textureOffsetX;
+            int y = textureOffsetY;
 
+            if (pieceSuffix.Contains("W"))
+                x += PieceWidth + texturePaddingX;
+            y += (Array.IndexOf(PieceTypes, pieceType) *
+                (PieceHeight + texturePaddingY));
+
+            return new Rectangle(x, y, PieceWidth, PieceHeight);
+        }
     }
 }
