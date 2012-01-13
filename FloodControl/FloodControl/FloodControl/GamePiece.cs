@@ -23,16 +23,16 @@ namespace FloodControl
         public const int PieceHeight = 40;
         public const int PieceWidth = 40;
 
-        public const int MaxPlayablePieceIndex = 5;
-        public const int EmptyPieceIndex = 6;
+        public const int MaxPlayablePieceIndex = 5; // кол-во игровых частей
+        public const int EmptyPieceIndex = 6; // индекс пустой части
 
         private const int textureOffsetX = 1;
         private const int textureOffsetY = 1;
         private const int texturePaddingX = 1;
         private const int texturePaddingY = 1;
 
-        private string pieceType = "";
-        private string pieceSuffix = "";
+        private string pieceType = ""; // тип из массива PieceType
+        private string pieceSuffix = ""; // заполнена водой или нет (содержит 'W') 
 
         public string PieceType
         {
@@ -58,18 +58,18 @@ namespace FloodControl
         }
 
         /* методы */
-        public void SetPiece(string type, string suffix)
+        public void SetPiece(string type, string suffix) // создать трубу
         {
             pieceType = type;
             pieceSuffix = suffix;
         }
 
-        public void SetPiece(string type)
+        public void SetPiece(string type) // создать пустую трубу
         {
             SetPiece(type, "");
         }
 
-        public void AddSuffix(string suffix)
+        public void AddSuffix(string suffix) // залить водой
         {
             if (!pieceSuffix.Contains(suffix))
             {
@@ -77,7 +77,7 @@ namespace FloodControl
             }
         }
 
-        public void RemoveSuffix(string suffix)
+        public void RemoveSuffix(string suffix) // сделать пустой
         {
             pieceSuffix = pieceSuffix.Replace(suffix, "");
         }
@@ -121,7 +121,7 @@ namespace FloodControl
             }
         }
 
-        public string[] GetOtherEnds(string startingEnd)
+        public string[] GetOtherEnds(string startingEnd) // возвращает окончание трубы (Top и Left)
         {
             List<string> opposites = new List<string>();
 
@@ -138,14 +138,15 @@ namespace FloodControl
             return pieceType.Contains(directions);
         }
 
-        public Rectangle GetSourceRect()
+        public Rectangle GetSourceRect() // возвращает Rect текстуры в Tile_Sheet
         {
             int x = textureOffsetX;
             int y = textureOffsetY;
 
-            if (pieceSuffix.Contains("W"))
+            if (pieceSuffix.Contains("W")) // если индекс есть (заполнена водой) то текстура из второго столбика
                 x += PieceWidth + texturePaddingX;
-            y += (Array.IndexOf(PieceTypes, pieceType) *
+
+            y += (Array.IndexOf(PieceTypes, pieceType) * // индекс в массиве * (размер частички + отступ)
                 (PieceHeight + texturePaddingY));
 
             return new Rectangle(x, y, PieceWidth, PieceHeight);
