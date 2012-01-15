@@ -58,13 +58,13 @@ namespace FloodControl
         }
 
         /* методы */
-        public void SetPiece(string type, string suffix) // создать трубу
+        public void SetPiece(string type, string suffix) // установить тип трубы
         {
             pieceType = type;
             pieceSuffix = suffix;
         }
 
-        public void SetPiece(string type) // создать пустую трубу
+        public void SetPiece(string type) // установить тип трубы
         {
             SetPiece(type, "");
         }
