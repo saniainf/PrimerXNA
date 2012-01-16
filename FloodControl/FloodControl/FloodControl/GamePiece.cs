@@ -121,7 +121,7 @@ namespace FloodControl
             }
         }
 
-        public string[] GetOtherEnds(string startingEnd) // возвращает окончание трубы (Top и Left)
+        public string[] GetOtherEnds(string startingEnd) // возвращает окончания трубы (Top и Left)
         {
             List<string> opposites = new List<string>();
 

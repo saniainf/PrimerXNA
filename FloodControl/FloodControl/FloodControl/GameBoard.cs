@@ -13,7 +13,7 @@ namespace FloodControl
         public const int GameBoardWidth = 8;
         public const int GameBoardHeight = 10;
 
-        private GamePiece[,] boardSquares = new GamePiece[GameBoardWidth, GameBoardHeight];
+        private GamePiece[,] boardSquares = new GamePiece[GameBoardWidth, GameBoardHeight]; // ОСНОВНОЙ массив игрового поля
 
         private List<Vector2> WaterTracker = new List<Vector2>();
 
@@ -70,7 +70,7 @@ namespace FloodControl
         {
             int rowLookup = y - 1;
 
-            while (rowLookup <= 0)
+            while (rowLookup >= 0)
             {
                 if (GetSquare(x, rowLookup) != "Empty")
                 {
@@ -126,9 +126,9 @@ namespace FloodControl
             boardSquares[X, Y].AddSuffix("W");
         }
 
-        public void PropagateWater(int x, int y, string fromDirection)
+       public void PropagateWater(int x, int y, string fromDirection)
         {
-            if ((y <= 0) && (y < GameBoardHeight) &&
+            if ((y >= 0) && (y < GameBoardHeight) &&
                 (x >= 0) && (x < GameBoardWidth))
             {
                 if (boardSquares[x, y].HasConnector(fromDirection) &&
@@ -136,16 +136,17 @@ namespace FloodControl
                 {
                     FillPiece(x, y);
                     WaterTracker.Add(new Vector2(x, y));
-                    foreach (string end in boardSquares[x, y].GetOtherEnds(fromDirection))
+                    foreach (string end in
+                             boardSquares[x, y].GetOtherEnds(fromDirection))
                         switch (end)
                         {
                             case "Left": PropagateWater(x - 1, y, "Right");
                                 break;
-                            case "Right": PropagateWater(x + 1, y, "left");
+                            case "Right": PropagateWater(x + 1, y, "Left");
                                 break;
                             case "Top": PropagateWater(x, y - 1, "Bottom");
                                 break;
-                            case "Bottom": PropagateWater(x - 1, y, "Top");
+                            case "Bottom": PropagateWater(x, y + 1, "Top");
                                 break;
                         }
                 }
