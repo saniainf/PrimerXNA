@@ -107,6 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FadingPiece.cs" />
+    <Compile Include="FallingPiece.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="GamePiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
