@@ -8,20 +8,20 @@ namespace FloodControl
 {
     class FallingPiece : GamePiece
     {
-        public int VerticalOffet;
+        public int VerticalOffset;
         public static int fallRate = 5;
 
         /* конструктор */
         public FallingPiece(string pieceType, int verticalOffet)
             : base(pieceType)
         {
-            VerticalOffet = verticalOffet;
+            VerticalOffset = verticalOffet;
         }
 
         /* методы */
         public void UpdatePiece()
         {
-            VerticalOffet = (int)MathHelper.Max(0, VerticalOffet - fallRate);
+            VerticalOffset = (int)MathHelper.Max(0, VerticalOffset - fallRate);
         }
     }
 }
