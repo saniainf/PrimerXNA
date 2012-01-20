@@ -195,11 +195,9 @@ namespace FloodControl
 
         private void HandleMouseInput(MouseState mouseState)
         {
-            int x = ((mouseState.X -
-                (int)gameBoardDisplayOrigin.X) / GamePiece.PieceWidth);
+            int x = ((mouseState.X - (int)gameBoardDisplayOrigin.X) / GamePiece.PieceWidth);
 
-            int y = ((mouseState.Y -
-                (int)gameBoardDisplayOrigin.Y) / GamePiece.PieceHeight);
+            int y = ((mouseState.Y - (int)gameBoardDisplayOrigin.Y) / GamePiece.PieceHeight);
 
             if ((x >= 0) && (x < GameBoard.GameBoardWidth) &&
               (y >= 0) && (y < GameBoard.GameBoardHeight))
